@@ -32,7 +32,24 @@
                - Para cada item: (https://vuejs.org/guide/essentials/list.html)
                  - Crear un componente item-data
             -->
-
+            <h1 id="title" class="jumbotron">{{ col.collection.title }}</h1>    
+            
+            <div class="row g-0 mx-0 mx-md-5">
+                <div class="col-12 col-md-6 col-lg-4" v-for="item in col.collection.items" :key="item.href">
+                    <div class="card h-100">
+                        <div class="card-body">                                                                                   
+                            <dl>
+                                <div v-for="dataItem in item.data" :key="dataItem.name">
+                                    <dt>{{ dataItem.prompt }}</dt>
+                                    <dd>{{ dataItem.value }}</dd>
+                                </div>
+                            </dl>                                
+                            <a :href="item.href" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
             
 
@@ -42,7 +59,8 @@
         </div>
 
         <!-- TODO: Cargar librería Vue 3 y archivo js/script.js -->
-        
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="./js/script.js"></script>
 
     </body>
 
