@@ -67,15 +67,13 @@ const ItemData = defineComponent({
 });
 
 // Crear la aplicación Vue
-const app = createApp({
-    setup() {
-        const col = reactive(server_data.collection);
-
-        return {
-            col
-        };
+const app = Vue.createApp({
+    data() {
+      return {
+        col: server_data  
+      }
     }
-});
+  });
 
 // Registrar los componentes globalmente
 app.component('edit-form', EditForm);
