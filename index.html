@@ -31,33 +31,24 @@
                  En su interior habrá un <h1> con id "title" que mostrará el título de la colección.
                - Para cada item: (https://vuejs.org/guide/essentials/list.html)
                  - Crear un componente item-data
-            -->                              
-          <div class="jumbotron text-center mb-4">
+            -->                                              
+          
+            <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
+            <div class="jumbotron text-center mb-4">
               <h1 id="title">{{ col.title }}</h1>
           </div>
-      
-          <div class="row">
-              <div class="col-md-4 mb-4" v-for="(item, index) in col.items" :key="index">
-                  <div class="card p-3">
-                      <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
-                      <p>{{ item.data.find(d => d.name === 'description').value }}</p>
-                      <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
-                      <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-                      <a :href="item.href" target="_blank" class="btn btn-primary btn-sm">Ver</a>
-                  </div>
-              </div>
-          </div>
-            <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
-            
 
             <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
-            
+            <div class="row">
+              <item-data v-for="(item, index) in col.items" :key="index" :item="item"></item-data>
+            </div>
 
         </div>
 
         <!-- TODO: Cargar librería Vue 3 y archivo js/script.js -->
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="./js/script.js"></script>
+
 
     </body>
 

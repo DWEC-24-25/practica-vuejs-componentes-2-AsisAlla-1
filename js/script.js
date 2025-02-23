@@ -38,39 +38,36 @@ const server_data = {
 };
 
 // Componente edit-form
-const EditForm = defineComponent({
+const EditForm = {
     template: `
         <div>
             <h2>Edit Form</h2>
             <!-- Aquí iría el formulario de edición -->
         </div>
     `
-});
+};
 
 // Componente item-data
-const ItemData = defineComponent({
-    props: {
-        item: {
-            type: Object,
-            required: true
-        }
-    },
+const ItemData = {
+    props: ['item'],
     template: `
-        <div>
-            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
-            <p>{{ item.data.find(d => d.name === 'description').value }}</p>
-            <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
-            <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-            <a :href="item.href" target="_blank">More Info</a>
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+                <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
+                <p>{{ item.data.find(d => d.name === 'description').value }}</p>
+                <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
+                <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
+                <a :href="item.href" target="_blank" class="btn btn-primary btn-sm">More Info</a>
+            </div>
         </div>
     `
-});
+};
 
 // Crear la aplicación Vue
 const app = Vue.createApp({
     data() {
       return {
-        col: server_data  
+        col: server_data.collection  
       }
     }
   });
