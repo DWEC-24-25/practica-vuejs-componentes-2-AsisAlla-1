@@ -49,32 +49,42 @@ const EditForm = {
 
 // Componente item-data
 const ItemData = {
-    props: ['item'],
+    props: ['item', 'toggleEditFormVisibility'], 
     template: `
         <div class="col-md-4 mb-4">
-            <div class="card p-3">
+            <div class="card p-3 h-100">
                 <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
                 <p>{{ item.data.find(d => d.name === 'description').value }}</p>
                 <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
                 <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-                <a :href="item.href" target="_blank" class="btn btn-primary btn-sm">More Info</a>
+                <a :href="item.href" target="_blank" class="btn btn-primary btn-sm">Ver</a>
+                <button class="btn btn-dark btn-sm" @click="toggleEditFormVisibility(item)">Editar</button>
             </div>
         </div>
     `
 };
 
+
 // Crear la aplicación Vue
 const app = Vue.createApp({
     data() {
-      return {
-        col: server_data.collection  
-      }
+        return {
+            col: server_data.collection, 
+            selectedItem: null,
+        };
+    },
+    methods: {
+        toggleEditFormVisibility(item) {
+            this.selectedItem = item;
+            console.log("Película seleccionada:", this.selectedItem);
+        }
     }
-  });
+});
+
 
 // Registrar los componentes globalmente
 app.component('edit-form', EditForm);
 app.component('item-data', ItemData);
 
 // Montar la aplicación en el elemento con id 'app'
-app.mount('#app');
+window.app = app.mount('#app');

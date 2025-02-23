@@ -39,9 +39,12 @@
           </div>
 
             <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
-            <div class="row">
-              <item-data v-for="(item, index) in col.items" :key="index" :item="item"></item-data>
+            <div class="row g-0 mx-0 mx-md-5">
+              <item-data v-for="(item, index) in col.items" :key="index" :item="item"
+                :toggleEditFormVisibility="toggleEditFormVisibility">
+              </item-data>
             </div>
+          
 
         </div>
 
