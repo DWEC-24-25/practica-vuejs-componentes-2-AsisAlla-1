@@ -62,16 +62,39 @@ const EditForm = {
 
 // Componente item-data
 const ItemData = {
-    props: ['item', 'toggleEditFormVisibility'], 
+    props: ["item"],
+    data() {
+        return {
+            isEditing: false,
+            tempItem: JSON.parse(JSON.stringify(this.item))
+        };
+    },
+    methods: {
+        editMovie() {
+            this.isEditing = true;
+        },
+        saveMovie() {
+            Object.assign(this.item, this.tempItem);
+            this.isEditing = false;
+        }
+    }, 
     template: `
-        <div class="col-md-4 mb-4">
-            <div class="card p-3 h-100">
-                <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
-                <p>{{ item.data.find(d => d.name === 'description').value }}</p>
-                <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
-                <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-                <a :href="item.href" target="_blank" class="btn btn-primary btn-sm">Ver</a>
-                <button class="btn btn-dark btn-sm" @click="toggleEditFormVisibility(item)">Editar</button>
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-sm mb-4 w-100 movie-card">
+                <div class="card-body d-flex flex-column">                    
+                    <div v-if="!isEditing">
+                        <h5 class="card-title fw-bold">{{ item.data.find(d => d.name === 'name').value }}</h5>
+
+                        <div v-for="field in item.data" :key="field.name">
+                            <p><strong>{{ field.prompt }}:</strong> {{ field.value }}</p>
+                        </div>
+                        <div class="mt-auto d-flex align-items-start gap-2">
+                            <a :href="item.href" target="_blank" class="btn btn-primary btn-sm">Ver</a>
+                            <button @click="editMovie" class="btn btn-secondary btn-sm">Editar</button>
+                        </div>
+                    </div>
+                    <edit-form v-else :tempItem="tempItem" :onSave="saveMovie"></edit-form>
+                </div>
             </div>
         </div>
     `
@@ -79,18 +102,11 @@ const ItemData = {
 
 
 // Crear la aplicación Vue
-const app = Vue.createApp({
+const app = createApp({
     data() {
         return {
-            col: server_data.collection, 
-            selectedItem: null,
+            collection: server_data.collection 
         };
-    },
-    methods: {
-        toggleEditFormVisibility(item) {
-            this.selectedItem = item;
-            console.log("Película seleccionada:", this.selectedItem);
-        }
     }
 });
 
@@ -100,4 +116,4 @@ app.component('edit-form', EditForm);
 app.component('item-data', ItemData);
 
 // Montar la aplicación en el elemento con id 'app'
-window.app = app.mount('#app');
+app.mount('#app');
