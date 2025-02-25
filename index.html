@@ -35,13 +35,12 @@
           
             <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
             <div class="jumbotron text-center mb-4">
-              <h1 id="title">{{ col.title }}</h1>
+              <h1 id="title">{{ collection.title }}</h1>
           </div>
 
             <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
             <div class="row g-0 mx-0 mx-md-5">
-              <item-data v-for="(item, index) in col.items" :key="index" :item="item"
-                :toggleEditFormVisibility="toggleEditFormVisibility">
+              <item-data v-for="(item, index) in collection.items" :key="index" :item="item">
               </item-data>
             </div>
           

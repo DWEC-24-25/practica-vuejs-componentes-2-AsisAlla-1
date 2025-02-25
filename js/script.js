@@ -1,3 +1,5 @@
+const { createApp } = Vue;
+
 // Sample data
 const server_data = {
     collection: {
@@ -39,10 +41,21 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = {
+    props: ["tempItem", "onSave"],
     template: `
         <div>
             <h2>Edit Form</h2>
             <!-- Aquí iría el formulario de edición -->
+
+            <div v-for="field in tempItem.data" :key="field.name" class="mb-2">
+                <label class="form-label">{{ field.prompt }}:</label>
+                <input v-if="field.name !== 'description'" v-model="field.value" type="text" class="form-control">
+                <textarea v-else v-model="field.value" class="form-control"></textarea>
+            </div>
+
+            <div class="mt-3 d-flex align-items-start gap-2">
+                <button @click="onSave" class="btn btn-primary btn-sm">Guardar</button>
+            </div>
         </div>
     `
 };
